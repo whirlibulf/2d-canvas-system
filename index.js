@@ -60,7 +60,7 @@ System.prototype.render = function () {
     component = components[i];
     this.context.save();
 
-    if (component._object.position) {
+    if (component._object.position !== undefined) {
       position = this.engine.getComponentInstance('position', component._object.position);
       this.context.translate(position.x, position.y);
     } else {
@@ -68,7 +68,7 @@ System.prototype.render = function () {
       continue;
     }
 
-    if (component._object.rotation) {
+    if (component._object.rotation !== undefined) {
       rotation = this.engine.getComponentInstance('rotation', component._object.rotation);
       this.context.rotate(rotation.angle);
     }
