@@ -60,7 +60,7 @@ System.prototype.render = function () {
   for (i = 0; i < components.length; ++i) {
     this.context.restore();
     position = this.engine.getComponentInstance('position', components[i]._object.position);
-    component.renderCanvas(this.context, position);
+    components[i].renderCanvas(this.context, position);
   }
 };
 
