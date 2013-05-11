@@ -70,7 +70,7 @@ System.prototype.render = function () {
 
     if (component._object.rotation) {
       rotation = this.engine.getComponentInstance('rotation', component._object.rotation);
-      this.context.rotate(rotation.rotation);
+      this.context.rotate(rotation.angle);
     }
 
     //TODO: add scale
