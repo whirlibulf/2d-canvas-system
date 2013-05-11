@@ -5,7 +5,15 @@
 
 ## Required Components
 
-* [whirlibulf/position-component](http://github.com/whirlibulf/position-component)
+* [whirlibulf/position-component](http://github.com/whirlibulf/position-component) - Position of the renderables
+
+## Optional Components
+
+* [whirlibulf/rotation-component](http://github.com/whirlibulf/rotation-component) - Apply a rotationt to renderables
+
+## Renderable Components
+
+* [whirlibulf/primitive-shape-component](http://github.com/whirlibulf/primitive-shape-component) - primitive shapes like rectangles and circles
 
 ## Installation
 
@@ -46,11 +54,7 @@ If you leave these out, the size will not be changed, and the canvas will keep w
 
 A list of components that have a `renderCanvas` function.
 
-See the list of compatible components below.
-
-## Compatible Components
-
-* [whirlibulf/primitive-shape-component](http://github.com/whirlibulf/primitive-shape-component)
+See the list of compatible components above.
 
 ## License
 
