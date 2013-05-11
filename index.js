@@ -56,9 +56,8 @@ System.prototype.render = function () {
   });
 
   //render each renderable component
-  this.context.save();
   for (i = 0; i < components.length; ++i) {
-    this.context.restore();
+    this.context.save();
 
     position = this.engine.getComponentInstance('position', components[i]._object.position);
     if (position) {
@@ -71,6 +70,8 @@ System.prototype.render = function () {
     //TODO: add scale and rotation
 
     components[i].renderCanvas(this.context);
+
+    this.context.restore();
   }
 };
 
