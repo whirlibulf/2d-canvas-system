@@ -1,0 +1,14 @@
+{
+  "name": "2d-canvas-system",
+  "repo": "whirlibulf/2d-canvas-system",
+  "description": "System for drawing objects on a 2d canvas for the whirlibulf game engine",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
