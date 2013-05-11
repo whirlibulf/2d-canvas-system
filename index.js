@@ -59,8 +59,18 @@ System.prototype.render = function () {
   this.context.save();
   for (i = 0; i < components.length; ++i) {
     this.context.restore();
+
     position = this.engine.getComponentInstance('position', components[i]._object.position);
-    components[i].renderCanvas(this.context, position);
+    if (position) {
+      this.context.moveTo(position.x, position.y);
+    } else {
+      //Don't draw something if it doesn't have a position
+      continue;
+    }
+
+    //TODO: add scale and rotation
+
+    components[i].renderCanvas(this.context);
   }
 };
 
