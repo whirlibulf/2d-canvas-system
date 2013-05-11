@@ -39,7 +39,7 @@ System.prototype.init = function (engine) {
  * instead of getting a new list each loop
  */
 System.prototype.render = function () {
-  var components, i, position;
+  var components, i, position, component;
 
   //get all renderable components
   components = [];
@@ -57,19 +57,25 @@ System.prototype.render = function () {
 
   //render each renderable component
   for (i = 0; i < components.length; ++i) {
+    component = components[i];
     this.context.save();
 
-    position = this.engine.getComponentInstance('position', components[i]._object.position);
-    if (position) {
+    if (component._object.position) {
+      position = this.engine.getComponentInstance('position', component._object.position);
       this.context.translate(position.x, position.y);
     } else {
       //Don't draw something if it doesn't have a position
       continue;
     }
 
-    //TODO: add scale and rotation
+    if (component._object.rotation) {
+      rotation = this.engine.getComponentInstance('rotation', component._object.rotation);
+      this.context.rotate(rotation.rotation);
+    }
 
-    components[i].renderCanvas(this.context);
+    //TODO: add scale
+
+    component.renderCanvas(this.context);
 
     this.context.restore();
   }
