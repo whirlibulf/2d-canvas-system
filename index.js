@@ -62,7 +62,7 @@ System.prototype.render = function () {
 
     position = this.engine.getComponentInstance('position', components[i]._object.position);
     if (position) {
-      this.context.translate(-position.x, -position.y);
+      this.context.translate(position.x, position.y);
     } else {
       //Don't draw something if it doesn't have a position
       continue;
