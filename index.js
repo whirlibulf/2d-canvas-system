@@ -43,7 +43,7 @@ System.prototype.init = function (engine) {
       this.renderObjects[type] = new this.renderables[type](this.engine);
 
       //render objects need to have a render method
-      if (!this.renderObjects[type].hasOwnProperty('render')) {
+      if (!this.renderObjects[type].render) {
         delete this.renderObjects[type];
       }
     }
