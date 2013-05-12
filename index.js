@@ -61,7 +61,7 @@ System.prototype.init = function (engine) {
  * instead of getting a new list each loop
  */
 System.prototype.render = function () {
-  var components, i, position, component;
+  var components, i, position, rotation, component;
 
   components = this.engine.getComponentInstances('renderable');
 
@@ -86,16 +86,16 @@ System.prototype.render = function () {
 
     this.context.save();
 
-    if (component._object.position !== undefined) {
-      position = this.engine.getComponentInstance('position', component._object.position);
+    position = this.engine.getComponentInstance(component._object, 'position');
+    if (position !== undefined) {
       this.context.translate(position.x, position.y);
     } else {
       //Don't draw something if it doesn't have a position
       continue;
     }
 
-    if (component._object.rotation !== undefined) {
-      rotation = this.engine.getComponentInstance('rotation', component._object.rotation);
+    rotation = this.engine.getComponentInstance(component._object, 'rotation');
+    if (rotation !== undefined) {
       this.context.rotate(rotation.angle);
     }
 
