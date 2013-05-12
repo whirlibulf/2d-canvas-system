@@ -1,3 +1,5 @@
+var Rectangle = require("./lib/rectangle.js");
+
 function System(options) {
   //canvas element
   if (options.element) {
@@ -19,13 +21,33 @@ function System(options) {
     this.resize();
   }
 
-  //renderable components
-  this.renderables = options.renderableComponents || [];
+  this.renderObjects = {};
+  this.renderables = options.renderables || {};
+
+  //default render objects
+  this.renderables.rectangle = Rectangle;
 }
 
 System.prototype.init = function (engine) {
+  var type;
+
   console.log('2D Canvas system loaded');
   this.engine = engine;
+
+  for (type in this.renderables) {
+    if (this.renderables.hasOwnProperty(type)) {
+      if (typeof this.renderables[type] !== 'function') {
+        continue;
+      }
+
+      this.renderObjects[type] = new this.renderables[type](this.engine);
+
+      //render objects need to have a render method
+      if (!this.renderObjects[type].hasOwnProperty('render')) {
+        delete this.renderObjects[type];
+      }
+    }
+  }
 };
 
 /**
@@ -41,14 +63,7 @@ System.prototype.init = function (engine) {
 System.prototype.render = function () {
   var components, i, position, component;
 
-  //get all renderable components
-  components = [];
-  for (i = 0; i < this.renderables.length; ++i) {
-    components.push(this.engine.getComponentInstances(this.renderables[i]));
-  }
-
-  //flatten components array of arrays into a single array
-  components = [].concat.apply([], components);
+  component = this.engine.getComponentInstances('renderable');
 
   //sort components by z index
   components.sort(function (a, b) {
@@ -58,6 +73,17 @@ System.prototype.render = function () {
   //render each renderable component
   for (i = 0; i < components.length; ++i) {
     component = components[i];
+
+    if (component.visible === false) {
+      //Object is not visible, skip it
+      continue;
+    }
+
+    if (!component.type || !this.renderObjects.hasOwnProperty(component.type)) {
+      //Render type is not recognized
+      continue;
+    }
+
     this.context.save();
 
     if (component._object.position !== undefined) {
@@ -75,7 +101,8 @@ System.prototype.render = function () {
 
     //TODO: add scale
 
-    component.renderCanvas(this.context);
+    //component.renderCanvas(this.context);
+    this.renderObjects[component.type].render(this.context, component);
 
     this.context.restore();
   }

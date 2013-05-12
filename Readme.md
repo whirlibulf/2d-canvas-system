@@ -5,15 +5,14 @@
 
 ## Required Components
 
-* [whirlibulf/position-component](http://github.com/whirlibulf/position-component) - Position of the renderables
+* [whirlibulf/renderable-component](http://github.com/whirlibulf/renderable-component) - The type of renderable
+* [whirlibulf/position-component](http://github.com/whirlibulf/position-component) - Position of the renderable
 
 ## Optional Components
 
-* [whirlibulf/rotation-component](http://github.com/whirlibulf/rotation-component) - Apply a rotationt to renderables
+* [whirlibulf/size-component](http://github.com/whirlibulf/size-component) - Required for primitive shapes
+* [whirlibulf/rotation-component](http://github.com/whirlibulf/rotation-component) - Apply a rotation to renderables
 
-## Renderable Components
-
-* [whirlibulf/primitive-shape-component](http://github.com/whirlibulf/primitive-shape-component) - primitive shapes like rectangles and circles
 
 ## Installation
 
@@ -21,7 +20,7 @@
 
 ## Usage
 
-This system *requires* the position component to know where to render objects.
+This system *requires* a position component to know where to render objects.
 
 Register the system:
 
@@ -30,9 +29,9 @@ Register the system:
       element: document.getElementById('game'),
       width: 800,
       height: 600,
-      renderables: [
-        'primitive-shapes'
-      ]
+      renderables: {
+        'custom-shape': CustomRenderObject
+      }
     });
     game.addSystem(system);
 
@@ -52,9 +51,9 @@ If you leave these out, the size will not be changed, and the canvas will keep w
 
 ### renderables
 
-A list of components that have a `renderCanvas` function.
+## Renderable Components
 
-See the list of compatible components above.
+## Custom Render Objects
 
 ## License
 
