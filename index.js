@@ -101,7 +101,7 @@ System.prototype.render = function () {
 
     //TODO: add scale
 
-    this.renderObjects[component.type].render(this.context, component);
+    this.renderObjects[component.type].render(this.context, component._object);
 
     this.context.restore();
   }

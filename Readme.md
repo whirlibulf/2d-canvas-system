@@ -51,9 +51,33 @@ If you leave these out, the size will not be changed, and the canvas will keep w
 
 ### renderables
 
-## Renderable Components
+This is an optional property where you can add your own custom rendering
+functions for rendering special types of objects.
 
-## Custom Render Objects
+This property is an object where the keys are the types, and the values are
+a class which implements a `render` function.
+
+For example, if you used this `renderables` option:
+
+    renderables: {
+      sprite: Sprite
+    }
+
+The system will essentially run this code:
+
+    this.renderObjects['sprite'] = new Sprite(this.engine);
+
+Then `this.renderObjects['sprite'].render(context, component)` will be run in
+the render loop whenever a sprite renderable is being drawn.
+
+See the source code for the built-in render types for examples of how to write
+a custom render class.
+
+## Built-in Render Types
+
+### rectangle
+
+Requires the `width` and `height` properties from the `size` component.
 
 ## License
 
