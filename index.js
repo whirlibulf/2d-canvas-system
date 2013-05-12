@@ -63,7 +63,7 @@ System.prototype.init = function (engine) {
 System.prototype.render = function () {
   var components, i, position, component;
 
-  component = this.engine.getComponentInstances('renderable');
+  components = this.engine.getComponentInstances('renderable');
 
   //sort components by z index
   components.sort(function (a, b) {
@@ -101,7 +101,6 @@ System.prototype.render = function () {
 
     //TODO: add scale
 
-    //component.renderCanvas(this.context);
     this.renderObjects[component.type].render(this.context, component);
 
     this.context.restore();
