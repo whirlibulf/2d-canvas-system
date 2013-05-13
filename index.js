@@ -1,4 +1,4 @@
-var autoscale = require('autoscale-canvas');
+var autoscale = require("autoscale-canvas");
 var Rectangle = require("./lib/rectangle.js");
 var Circle = require("./lib/circle.js");
 
@@ -15,7 +15,7 @@ function System(options) {
   }
 
   //canvas context
-  this.context = this.canvas.getContext('2d');
+  this.context = this.canvas.getContext("2d");
 
   //canvas size
   this.width = options.width || this.canvas.width;
@@ -27,69 +27,92 @@ function System(options) {
     this.resize();
   }
 
-  this.renderObjects = {};
   this.renderables = options.renderables || {};
 
-  //default render objects
-  this.renderables.rectangle = Rectangle;
-  this.renderables.circle = Circle;
+  //default renderables
+  if (!this.renderables.rectangle) {
+    this.renderables.rectangle = Rectangle;
+  }
+  if (!this.renderables.circle) {
+    this.renderables.circle = Circle;
+  }
+
+  //list of component instances to be rendered
+  this.renderList = [];
 }
 
-System.prototype.init = function (engine) {
-  var type;
 
-  console.log('2D Canvas system loaded');
+
+System.prototype.init = function (engine) {
+  var type, componentSort, that;
+  that = this;
+
+  console.log("2D Canvas system loaded");
   this.engine = engine;
 
+  //instantiate all the render classes
   for (type in this.renderables) {
     if (this.renderables.hasOwnProperty(type)) {
-      if (typeof this.renderables[type] !== 'function') {
+      if (typeof this.renderables[type] !== "function") {
         continue;
       }
 
-      this.renderObjects[type] = new this.renderables[type](this.engine);
+      this.renderables[type] = new this.renderables[type](this.engine);
 
       //render objects need to have a render method
-      if (!this.renderObjects[type].render) {
-        delete this.renderObjects[type];
+      if (!this.renderables[type].render) {
+        delete this.rendearbles[type];
       }
     }
   }
+
+
+  //update instance list if a new renderable is created
+  this.engine.on("componentCreated", function (type, instance) {
+    if (type === "renderable") {
+      that.renderList.push(instance);
+    }
+  });
+
+  //if a renderable is deleted, reset the instance list completely
+  //might be an improvement to loop through the list and simply remove
+  //only the deleted component
+  this.engine.on("componentRemoved", function (type, id) {
+    if (type === "renderable") {
+      that.renderList.length = 0;
+      that.renderList = that.engine.getComponentInstances('renderable');
+    }
+  });
+};
+
+
+function componentSort(a, b) {
+  return (b.zIndex || 0) - (a.zIndex || 0);
 };
 
 /**
- * Get all renderable components
- * Sort them by z index
+ * Sort renderables by z index
  * Call the render function of each component
- *
- * At the moment this generates loads of garbage every render tick
- * TODO: add events when components are added and deleted
- * listen to those events and simply update the internal list of renderables
- * instead of getting a new list each loop
  */
 System.prototype.render = function () {
-  var components, i, position, rotation, component;
+  var i, position, rotation, component;
 
-  components = this.engine.getComponentInstances('renderable');
+  //sort by z index
+  this.renderList.sort(componentSort);
 
-  //sort components by z index
-  components.sort(function (a, b) {
-    return (b.zIndex || 0) - (a.zIndex || 0);
-  });
-
-  //render each renderable component
-  for (i = 0; i < components.length; ++i) {
-    component = components[i];
+  for (i = 0; i < this.renderList.length; ++i) {
+    component = this.renderList[i];
 
     if (component.visible === false) {
       //Object is not visible, skip it
       continue;
     }
 
-    if (!component.type || !this.renderObjects.hasOwnProperty(component.type)) {
+    if (!component.type || !this.renderables.hasOwnProperty(component.type)) {
       //Render type is not recognized
       continue;
     }
+
 
     this.context.save();
 
@@ -108,7 +131,7 @@ System.prototype.render = function () {
 
     //TODO: add scale
 
-    this.renderObjects[component.type].render(this.context, component._object);
+    this.renderables[component.type].render(this.context, component._object);
 
     this.context.restore();
   }
