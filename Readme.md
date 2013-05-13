@@ -79,6 +79,10 @@ a custom render class.
 
 Requires the `width` and `height` properties from the `size` component.
 
+### circle
+
+Requires the `radius` property from the `size` component.
+
 ## License
 
   MIT

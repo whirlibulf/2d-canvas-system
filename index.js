@@ -1,4 +1,5 @@
 var Rectangle = require("./lib/rectangle.js");
+var Circle = require("./lib/circle.js");
 
 function System(options) {
   //canvas element
@@ -26,6 +27,7 @@ function System(options) {
 
   //default render objects
   this.renderables.rectangle = Rectangle;
+  this.renderables.circle = Circle;
 }
 
 System.prototype.init = function (engine) {
