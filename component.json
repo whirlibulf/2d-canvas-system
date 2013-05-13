@@ -3,8 +3,13 @@
   "repo": "whirlibulf/2d-canvas-system",
   "description": "System for drawing objects on a 2d canvas for the whirlibulf game engine",
   "version": "0.0.1",
-  "keywords": ["whirlibulf", "system"],
-  "dependencies": {},
+  "keywords": [
+    "whirlibulf",
+    "system"
+  ],
+  "dependencies": {
+    "component/autoscale-canvas": "*"
+  },
   "development": {},
   "license": "MIT",
   "main": "index.js",

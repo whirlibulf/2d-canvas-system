@@ -1,3 +1,4 @@
+var autoscale = require('autoscale-canvas');
 var Rectangle = require("./lib/rectangle.js");
 var Circle = require("./lib/circle.js");
 
@@ -7,6 +8,10 @@ function System(options) {
     this.canvas = options.element;
   } else {
     this.canvas = this.createCanvas();
+  }
+
+  if (options.retina === true) {
+    autoscale(this.canvas);
   }
 
   //canvas context

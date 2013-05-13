@@ -32,7 +32,8 @@ Register the system:
       height: 600,
       renderables: {
         'custom-shape': CustomRenderObject
-      }
+      },
+      retina: true
     });
     game.addSystem(system);
 
@@ -73,6 +74,16 @@ the render loop whenever a sprite renderable is being drawn.
 
 See the source code for the built-in render types for examples of how to write
 a custom render class.
+
+### retina
+
+This is a boolean option.
+
+If it is set to true, then the canvas will automatically be scaled to a higher
+resolution on retina devices.
+
+No positioning code needs to be changed to take advantage of retina.
+
 
 ## Built-in Render Types
 
