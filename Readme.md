@@ -11,6 +11,7 @@
 ## Optional Components
 
 * [whirlibulf/size-component](http://github.com/whirlibulf/size-component) - Required for primitive shapes
+* [whirlibulf/color-component](http://github.com/whirlibulf/color-component) - Required for fill colors
 * [whirlibulf/rotation-component](http://github.com/whirlibulf/rotation-component) - Apply a rotation to renderables
 
 
@@ -79,9 +80,13 @@ a custom render class.
 
 Requires the `width` and `height` properties from the `size` component.
 
+Uses the `fill` property from the `color` component for the fill color.
+
 ### circle
 
 Requires the `radius` property from the `size` component.
+
+Uses the `fill` property from the `color` component for the fill color.
 
 ## License
 
