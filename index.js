@@ -87,7 +87,7 @@ System.prototype.init = function (engine) {
 
 
 function componentSort(a, b) {
-  return (b.zIndex || 0) - (a.zIndex || 0);
+  return (a.zIndex || 0) - (b.zIndex || 0);
 };
 
 /**
