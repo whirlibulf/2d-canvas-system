@@ -100,6 +100,8 @@ System.prototype.render = function () {
   //sort by z index
   this.renderList.sort(componentSort);
 
+  this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
   for (i = 0; i < this.renderList.length; ++i) {
     component = this.renderList[i];
 
@@ -121,6 +123,7 @@ System.prototype.render = function () {
       this.context.translate(position.x, position.y);
     } else {
       //Don't draw something if it doesn't have a position
+      this.context.restore();
       continue;
     }
 
