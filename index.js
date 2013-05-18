@@ -80,7 +80,7 @@ System.prototype.init = function (engine) {
   this.engine.on("componentRemoved", function (type, id) {
     if (type === "renderable") {
       that.renderList.length = 0;
-      that.renderList = that.engine.getComponentInstances('renderable');
+      that.renderList = that.engine.getAll('renderable');
     }
   });
 };
@@ -118,7 +118,7 @@ System.prototype.render = function () {
 
     this.context.save();
 
-    position = this.engine.getComponentInstance(component._object, 'position');
+    position = this.engine.get(component._object, 'position');
     if (position !== undefined) {
       this.context.translate(position.x, position.y);
     } else {
@@ -127,7 +127,7 @@ System.prototype.render = function () {
       continue;
     }
 
-    rotation = this.engine.getComponentInstance(component._object, 'rotation');
+    rotation = this.engine.get(component._object, 'rotation');
     if (rotation !== undefined) {
       this.context.rotate(rotation.angle);
     }

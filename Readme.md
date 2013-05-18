@@ -35,7 +35,7 @@ Register the system:
       },
       retina: true
     });
-    game.addSystem(system);
+    game.use(system);
 
 The system takes several options:
 
