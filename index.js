@@ -4,6 +4,7 @@ var Circle = require("./lib/circle.js");
 
 function System(config) {
     this.config = config || "canvas";
+    this.renderList = [];
 }
 
 System.prototype.init = function (engine) {
@@ -60,7 +61,7 @@ System.prototype.init = function (engine) {
 
             //render objects need to have a render method
             if (!this.renderables[type].render) {
-                delete this.rendearbles[type];
+                delete this.renderables[type];
             }
         }
     }
