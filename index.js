@@ -3,9 +3,17 @@ var Rectangle = require("./lib/rectangle.js");
 var Circle = require("./lib/circle.js");
 
 function System(config) {
-    if (!config) {
-        config = "canvas";
-    }
+    this.config = config || "canvas";
+}
+
+System.prototype.init = function (engine) {
+    var type, componentSort, that;
+    that = this;
+
+    console.log("2D Canvas system loaded");
+    this.engine = engine;
+
+    options = this.engine.config(this.config);
 
     //canvas element
     if (options.element) {
@@ -40,19 +48,6 @@ function System(config) {
     if (!this.renderables.circle) {
         this.renderables.circle = Circle;
     }
-
-    //list of component instances to be rendered
-    this.renderList = [];
-}
-
-
-
-System.prototype.init = function (engine) {
-    var type, componentSort, that;
-    that = this;
-
-    console.log("2D Canvas system loaded");
-    this.engine = engine;
 
     //instantiate all the render classes
     for (type in this.renderables) {
@@ -92,7 +87,7 @@ System.prototype.init = function (engine) {
 
 function componentSort(a, b) {
     return (a.zIndex || 0) - (b.zIndex || 0);
-};
+}
 
 /**
 * Sort renderables by z index
