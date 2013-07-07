@@ -118,7 +118,7 @@ System.prototype.render = function () {
 
         this.context.save();
 
-        position = this.engine.get(component._object, 'position');
+        position = this.engine.get(component._entity, 'position');
         if (position !== undefined) {
             this.context.translate(position.x, position.y);
         } else {
@@ -127,14 +127,14 @@ System.prototype.render = function () {
             continue;
         }
 
-        rotation = this.engine.get(component._object, 'rotation');
+        rotation = this.engine.get(component._entity, 'rotation');
         if (rotation !== undefined) {
             this.context.rotate(rotation.angle);
         }
 
         //TODO: add scale
 
-        this.renderables[component.type].render(this.context, component._object);
+        this.renderables[component.type].render(this.context, component._entity);
 
         this.context.restore();
     }
