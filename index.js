@@ -61,6 +61,7 @@ System.prototype.init = function (engine) {
 
             //render objects need to have a render method
             if (!this.renderables[type].render) {
+                console.error("Render type '" + type + "' is missing render function");
                 delete this.renderables[type];
             }
         }
