@@ -8,7 +8,10 @@ function System(config) {
 }
 
 System.prototype.init = function (engine) {
-    var type, componentSort, that;
+    var type,
+        that,
+        options;
+
     that = this;
 
     console.log("2D Canvas system loaded");
