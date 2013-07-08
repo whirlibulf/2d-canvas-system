@@ -69,9 +69,9 @@ System.prototype.init = function (engine) {
 
 
     //update instance list if a new renderable is created
-    this.engine.on("componentCreated", function (type, instance) {
+    this.engine.on("componentCreated", function (type, id, entity) {
         if (type === "renderable") {
-            that.renderList.push(instance);
+            that.renderList.push(that.engine.get(entity, type));
         }
     });
 
